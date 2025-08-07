@@ -1,0 +1,19 @@
+# Временные файлы
+*.tmp
+*.swp
+*~
+
+# Файлы и папки PyCharm
+.idea/
+*.iml
+
+# Кэш и логи
+.PyCharm*/
+*.log
+out/
+build/
+__pycache__/
+
+# Виртуальное окружение
+venv/
+djvenv/
