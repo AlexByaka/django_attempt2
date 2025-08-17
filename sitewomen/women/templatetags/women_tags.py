@@ -4,7 +4,7 @@ import women.views as views
 
 register = template.Library()
 
-
+@register.s
 @register.inclusion_tag('women/list_categories.html')
 def show_categories(cat_selected=0):
     cats = views.cats_db
