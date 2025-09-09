@@ -1,6 +1,6 @@
-from django.shortcuts import render, reverse, redirect, HttpResponseRedirect, HttpResponsePermanentRedirect
+from django.shortcuts import render, get_object_or_404, reverse, redirect, HttpResponseRedirect, HttpResponsePermanentRedirect
 from django.http import HttpResponse, HttpResponseNotFound
-
+from women.models import Women
 
 menu = [{'title': "О сайте", 'url_name': 'about'},
         {'title': "Добавить статью", 'url_name': 'add_page'},
@@ -23,10 +23,12 @@ cats_db = [
 ]
 
 def index(request):
+    posts = Women.objects.filter(is_published=1)
+
     data = {
         'title': 'Главная страница',
         'menu': menu,
-        'posts': data_db,
+        'posts': posts,
         'cat_selected': 0
     }
     return render(request, 'women/index.html', context=data)
@@ -56,8 +58,17 @@ def login(request):
     return HttpResponse(f'Войти')
 
 
-def show_post(request):
-    return HttpResponseNotFound(f'<h1>Страница не не найдена </h1>')
+def show_post(request, post_slug):
+    post = get_object_or_404(Women, slug=post_slug)
+
+    data = {
+        'title': post.title,
+        'menu': menu,
+        'post': post,
+        'cat_selected': 1
+    }
+
+    return render(request, 'women/post.html', data)
 
 def show_category(request, cat_id):
     data = {
