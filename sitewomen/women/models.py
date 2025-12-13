@@ -15,7 +15,7 @@ def translit_to_eng(s: str) -> str:
 
 class PublishedManager(models.Manager):
     def get_queryset(self):
-        return super().get_queryset().filter(is_published=0)
+        return super().get_queryset().filter(is_published=1)
 
 
 class Women(models.Model):
